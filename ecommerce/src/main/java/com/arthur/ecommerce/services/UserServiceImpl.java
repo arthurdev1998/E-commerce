@@ -24,8 +24,18 @@ public class UserServiceImpl implements UserService {
 		user.setEmail(signupDto.getEmail());
 		user.setUserRole(UserRole.USER);
 		user.setPassword(new BCryptPasswordEncoder().encode(signupDto.getPassword()));
-		userRepository.save(user);
-		return user.mapUserToUserDto();
+		User createdUser = userRepository.save(user);
+		
+		
+		UserDto userDTO = new UserDto(); 
+		userDTO.setId(createdUser.getId());
+		userDTO.setName(createdUser.getName());
+		userDTO.setEmail(createdUser.getEmail());
+		userDTO.setPassword(createdUser.getPassword());
+		userDTO.setUserRole(createdUser.getUserRole());
+		
+		
+		return userDTO;
 		
 	
 	}
